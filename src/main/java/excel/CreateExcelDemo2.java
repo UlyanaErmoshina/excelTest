@@ -16,12 +16,13 @@ public class CreateExcelDemo2 {
     public static void main(String[] args) throws IOException {
         HSSFWorkbook workbook = new HSSFWorkbook();
         HSSFSheet sheet = workbook.createSheet("Number");
-
+        //todo row num не используешь
         int rowNum = 0;
+        //todo параметры определить сразу в цикле. так код займёт меньше места
         Cell cell;
         Row row;
 
-
+        //todo это здесь зачем?
         //cell = row.createCell(rowNum, CellType.NUMERIC);
         for (int i = 0; i < 10; i++) {
             row = sheet.createRow(i);

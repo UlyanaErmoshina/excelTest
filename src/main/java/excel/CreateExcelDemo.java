@@ -12,7 +12,7 @@ import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.CellType;
 import org.apache.poi.ss.usermodel.Row;
 
-
+//todo в чём разница CreateExcelDemo и CreateExcelDemo2?
 public class CreateExcelDemo {
 
     private static HSSFCellStyle createStyleForTitle(HSSFWorkbook workbook) {
@@ -33,6 +33,8 @@ public class CreateExcelDemo {
         HSSFCellStyle style = createStyleForTitle(workbook);
         row = sheet.createRow(rowNum);
 
+
+        //todo а почему нельзя эту простыню сделать в цикле?
         // Number
         cell = row.createCell(0, CellType.STRING);
         cell.setCellValue("Number");

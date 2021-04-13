@@ -15,6 +15,7 @@ import static sun.nio.ch.IOStatus.check;
 
 public class TextTest {
 
+//todo это лишнее
     Cell cell;
     Row row;
 
@@ -57,7 +58,7 @@ public class TextTest {
 
         List<String> lines = Files.readAllLines(file.toPath(),
                 StandardCharsets.UTF_8);
-
+        //todo зачем он тут, если ты его не используешь?
         String[] array = new String[lines.size()];
 
         String[][] array2 = new String[lines.size()][2];
@@ -83,7 +84,7 @@ public class TextTest {
 
         HSSFWorkbook workbook = new HSSFWorkbook();
         HSSFSheet sheet = workbook.createSheet("Numbers");
-
+        //todo а это зачем? если Row=i
         int rowNum = 0;
 
         String[][] array2 = parseCsv();
@@ -111,7 +112,7 @@ public class TextTest {
 
     }
 
-
+//todo код не должен быть закомментирован. 
     //@AfterTest
     //void deleteFile() throws IOException {
     //excel.Text3.DeleteExcel(); //вызов метода удаления файла

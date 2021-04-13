@@ -10,7 +10,7 @@ import java.util.zip.*;
 public class createArchive {
 
     public static void createArchive() {
-
+//todo файлики назови понятнее. пока не откроешь не поймешь что в нём
         String filename = "src/main/resources/New2.csv";
         try (ZipOutputStream zout = new ZipOutputStream(new FileOutputStream("src/main/resources/output.zip"));
              FileInputStream fis = new FileInputStream(filename);) {
@@ -26,7 +26,7 @@ public class createArchive {
         }
 
     }
-
+//todo нашла метод-молодец. А поняла что он делает? Сможешь рассказать?
     public static void openArchiveAndSaveFile() {
 
         try (ZipInputStream zin = new ZipInputStream(new FileInputStream("src/main/resources/output.zip"))) {
@@ -53,7 +53,8 @@ public class createArchive {
     }
 
     public static File getFile(String path) {
-
+        //todo ты так и не пробросила параметр path в строчку new File(path). Кажется ты не понимаешь, зачем это нужно.
+        // Но без этого никак
         File file1 = new File("src/main/resources/New2.csv");
         File file2 = new File("src/main/java/resources/newFile/New2.csv");
 
@@ -62,12 +63,15 @@ public class createArchive {
 
 
     public static boolean compareFiles2() throws IOException {
-
+        //todo при использовании метода getFile ты бы сразу файлы записала бы в FileInputStream и это минус две строчки и читается легко
         File file1 = new File("src/main/resources/New2.csv");
         File file2 = new File("src/main/java/resources/newFile/New2.csv");
+        //todo Знаю, что можно так написать, но старайся этого не делать, потому что пределы логики не всегда можно отследить.
+        // Велика вероятность сделать ошибку
         if (file1.length() != file2.length()) return false;
         FileInputStream fis1 = new FileInputStream(file1);
         FileInputStream fis2 = new FileInputStream(file2);
+        //todo разобралась что этот код делает? и зачем тут try/catch/finally?
         try {
             int byte1;
             while ((byte1 = fis1.read()) != -1) {
@@ -81,6 +85,7 @@ public class createArchive {
         return true;
     }
 
+    //todo код в комментах без текста это плохо. что куда и зачем забудешь
     //public static void compareFiles() {
     //ArchiveTest.openArchiveAndSaveFile();
 
