@@ -7,7 +7,7 @@ import au.com.bytecode.opencsv.CSVReader;
 public class TextCsv2 {
 
     public static String[] main()  throws Exception {
-        CSVReader reader = new CSVReader(new FileReader("src/main/resources/New2.csv"), ',' , '"' , 1);
+        CSVReader reader = new CSVReader(new FileReader("src/main/resources/NumbersFile.csv"), ',' , '"' , 1);
         String[] nextLine;
         while ((nextLine = reader.readNext()) != null) {
             if (nextLine != null) {

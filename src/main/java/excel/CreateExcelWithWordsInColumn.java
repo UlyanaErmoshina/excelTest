@@ -9,13 +9,11 @@ import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.CellType;
 import org.apache.poi.ss.usermodel.Row;
-//todo в чем разница между классами text, text2 и text3 - не понятно
-public class Text {
-    //todo массив не используешь. Старайся не оставлять параметров серых после завершения написания кода
-    String[] words = {"съешь", "же", "ещё", "этих", "мягких", "французских", "булок", ",", "да", "выпей", "чаю"};
 
-    //todo не шлёпай везде main. При компиляции всего кода это приведет к ошибке, потому что у тебя несколько точек входа
-    public static void main(String[] args) throws IOException {
+public class CreateExcelWithWordsInColumn {
+
+
+    public static void createExcelWithWords (String[] args) throws IOException {
         HSSFWorkbook workbook = new HSSFWorkbook();
         HSSFSheet sheet = workbook.createSheet("Words");
 

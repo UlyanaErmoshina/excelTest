@@ -10,17 +10,12 @@ import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
 import org.testng.Assert;
 
-public class Text3 {
-//todo не нужные параметры, которые не используешь
-    Cell cell;
-    Row row;
+public class CreateExcelAndCheck {
 
     public static void createExcel() throws IOException {
         HSSFWorkbook workbook = new HSSFWorkbook();
         HSSFSheet sheet = workbook.createSheet("excel.Text");
         Row row;
-        //todo rowNum тебе не нужен
-        int rowNum = 0;
         String str = "съешь же ещё этих мягких французских булок, да выпей чаю";
         str = str.replaceAll(",", "");
         String[] words = str.split(" ");
@@ -97,13 +92,8 @@ public class Text3 {
         FileInputStream fis = new FileInputStream("C:\\ved\\WordsT.xls");
         Workbook wb = new HSSFWorkbook(fis); //открываем файл
         Sheet sheet = wb.getSheetAt(0);
-        //todo не нужные параметры и не нужные куски кода нужно удалять, либо оставлять комментарии, не вспомнишь зачем они
-        Cell cell;
-        Row row;
-        //int filledCells = sheet.getRow(0).getLastCellNum();
         for (int i = 0; i < 10; i++) {
-            //int filledCells = sheet.getRow(0).getLastCellNum();
-            //for (int j = 0; j < 10; j++) {
+
             int filledCells = sheet.getRow(i).getLastCellNum();
             int actual = filledCells;
             Assert.assertEquals(actual, expected);

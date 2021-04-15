@@ -10,30 +10,28 @@ import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.CellType;
 import org.apache.poi.ss.usermodel.Row;
 
-
-public class CreateExcelDemo2 {
+public class CreateExcelWithWordsInLine {
 
     public static void main(String[] args) throws IOException {
         HSSFWorkbook workbook = new HSSFWorkbook();
-        HSSFSheet sheet = workbook.createSheet("Number");
-        //todo row num не используешь
+        HSSFSheet sheet = workbook.createSheet("Words");
+
         int rowNum = 0;
-        //todo параметры определить сразу в цикле. так код займёт меньше места
         Cell cell;
         Row row;
 
-        //todo это здесь зачем?
-        //cell = row.createCell(rowNum, CellType.NUMERIC);
-        for (int i = 0; i < 10; i++) {
-            row = sheet.createRow(i);
-            for (int j = 0; j < 10; j++) {
-                cell = row.createCell(j, CellType.NUMERIC);
+        row = sheet.createRow(rowNum);
 
-                cell.setCellValue(j);
-            }
-        }
 
-            File file = new File("C:\\ved\\Nums.xls");
+        String[] words = {"съешь", "же", "ещё", "этих", "мягких", "французских", "булок", "да", "выпей", "чаю"};
+
+        for (int j = 0; j < words.length; j++) {
+            cell = row.createCell(j, CellType.NUMERIC);
+
+            cell.setCellValue(words[j]);
+
+
+            File file = new File("C:\\ved\\Wordsnew.xls");
             file.getParentFile().mkdirs();
 
             FileOutputStream outFile = new FileOutputStream(file);
@@ -42,6 +40,6 @@ public class CreateExcelDemo2 {
 
         }
     }
-
+}
 
 

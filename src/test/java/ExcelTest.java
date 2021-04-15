@@ -1,9 +1,10 @@
-import excel.Text3;
+import excel.CreateExcelAndCheck;
 import org.apache.poi.hssf.usermodel.HSSFSheet;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.Row;
 import org.testng.Assert;
+import org.testng.annotations.AfterTest;
 import org.testng.annotations.Test;
 
 import java.io.*;
@@ -13,27 +14,24 @@ import java.util.List;
 
 import static sun.nio.ch.IOStatus.check;
 
-public class TextTest {
+public class ExcelTest {
 
-//todo это лишнее
-    Cell cell;
-    Row row;
 
     @Test
     void shouldTestWords() throws IOException {
-        Text3.getText();
+        CreateExcelAndCheck.getText();
 
-        String[] actual = Text3.getText();
-        String[] expected = Text3.Split();
+        String[] actual = CreateExcelAndCheck.getText();
+        String[] expected = CreateExcelAndCheck.Split();
 
         Assert.assertEquals(actual, expected);
     }
 
     @Test
     void shouldTestCellIsEmptyBelow() throws IOException {
-        Text3.getText();
+        CreateExcelAndCheck.getText();
 
-        int actual = Text3.CellIsEmpty();//число заполненных строк
+        int actual = CreateExcelAndCheck.CellIsEmpty();//число заполненных строк
         int expected = 10;//длина массива
         Assert.assertEquals(actual, expected);
 
@@ -42,7 +40,7 @@ public class TextTest {
 
     @Test
     void shouldTestCells() throws IOException {
-        Text3.getText();
+        CreateExcelAndCheck.getText();
 
         int expected = 1;//кол-во заполненных строк
         check(expected);
@@ -54,12 +52,10 @@ public class TextTest {
 
     public static String[][] parseCsv() throws Exception {
 
-        File file = new File("src/main/resources/New2.csv");
+        File file = new File("src/main/resources/NumbersFile.csv");
 
         List<String> lines = Files.readAllLines(file.toPath(),
                 StandardCharsets.UTF_8);
-        //todo зачем он тут, если ты его не используешь?
-        String[] array = new String[lines.size()];
 
         String[][] array2 = new String[lines.size()][2];
         int index = 0;
@@ -84,8 +80,6 @@ public class TextTest {
 
         HSSFWorkbook workbook = new HSSFWorkbook();
         HSSFSheet sheet = workbook.createSheet("Numbers");
-        //todo а это зачем? если Row=i
-        int rowNum = 0;
 
         String[][] array2 = parseCsv();
 
@@ -112,11 +106,12 @@ public class TextTest {
 
     }
 
-//todo код не должен быть закомментирован. 
-    //@AfterTest
-    //void deleteFile() throws IOException {
-    //excel.Text3.DeleteExcel(); //вызов метода удаления файла
-    //}
+
+    @AfterTest
+    void deleteFile() throws IOException {
+    excel.CreateExcelAndCheck.DeleteExcel(); //вызов метода удаления файла,если он нужен
+    }
+
 }
 
 

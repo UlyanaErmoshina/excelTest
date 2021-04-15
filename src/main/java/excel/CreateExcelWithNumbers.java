@@ -12,8 +12,8 @@ import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.CellType;
 import org.apache.poi.ss.usermodel.Row;
 
-//todo в чём разница CreateExcelDemo и CreateExcelDemo2?
-public class CreateExcelDemo {
+
+public class CreateExcelWithNumbers {
 
     private static HSSFCellStyle createStyleForTitle(HSSFWorkbook workbook) {
         HSSFFont font = workbook.createFont();
@@ -34,56 +34,26 @@ public class CreateExcelDemo {
         row = sheet.createRow(rowNum);
 
 
-        //todo а почему нельзя эту простыню сделать в цикле?
-        // Number
         cell = row.createCell(0, CellType.STRING);
         cell.setCellValue("Number");
         cell.setCellStyle(style);
 
-        // Number1
-        cell = row.createCell(1, CellType.NUMERIC);
-        cell.setCellValue("1");
-        cell.setCellStyle(style);
+        //цикл
 
-        // Number2
-        cell = row.createCell(2, CellType.NUMERIC);
-        cell.setCellValue("2");
+        String[] numbers = {"1", "2", "3", "4", "5", "6", "7", "8", "9", "10"};
 
-        // Number3
-        cell = row.createCell(3, CellType.NUMERIC);
-        cell.setCellValue("3");
-        cell.setCellStyle(style);
+        for (int j = 1; j <= numbers.length; j++) {
+            cell = row.createCell(j, CellType.NUMERIC);
 
-        // Number4
-        cell = row.createCell(4, CellType.NUMERIC);
-        cell.setCellValue("4");
+            cell.setCellValue(numbers[j-1]);
 
-        // Number5
-        cell = row.createCell(5, CellType.NUMERIC);
-        cell.setCellValue("5");
-        cell.setCellStyle(style);
+            if(j % 2 == 0) {
+                cell.setCellStyle(style);
+            }
+        }
 
-        // Number6
-        cell = row.createCell(6, CellType.NUMERIC);
-        cell.setCellValue("6");
 
-        // Number7
-        cell = row.createCell(7, CellType.NUMERIC);
-        cell.setCellValue("7");
-        cell.setCellStyle(style);
-
-        // Number8
-        cell = row.createCell(8, CellType.NUMERIC);
-        cell.setCellValue("8");
-
-        // Number9
-        cell = row.createCell(9, CellType.NUMERIC);
-        cell.setCellValue("9");
-        cell.setCellStyle(style);
-
-        // Number10
-        cell = row.createCell(10, CellType.NUMERIC);
-        cell.setCellValue("10");
+        //добавить if с чередованием шрифта
 
         // Column1,15
         row = sheet.createRow(1);
@@ -100,6 +70,7 @@ public class CreateExcelDemo {
         row = sheet.createRow(3);
         cell = row.createCell(1, CellType.NUMERIC);
         cell.setCellValue("17");
+
 
 
 
