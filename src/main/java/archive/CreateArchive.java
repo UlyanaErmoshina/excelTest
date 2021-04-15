@@ -86,7 +86,7 @@ public class CreateArchive {
     }
 
     //второй способ сравнения файлов, используя md5
-    public static void compareFiles() throws NoSuchAlgorithmException, IOException {
+    public static void compareFilesMD5() throws NoSuchAlgorithmException, IOException {
 
 
         MessageDigest md_1 = MessageDigest.getInstance("MD5");
@@ -108,4 +108,12 @@ public class CreateArchive {
 
 
         }
+
+    public static void deleteArchiveAndNewFile() throws IOException {
+
+        File zout = new File("src/main/resources/output.zip");
+        zout.delete();
+    }
+
+
     }

@@ -1,4 +1,9 @@
 
+import archive.CreateArchive;
+import org.junit.Before;
+import org.testng.annotations.AfterSuite;
+import org.testng.annotations.AfterTest;
+import org.testng.annotations.BeforeSuite;
 import org.testng.annotations.Test;
 
 import java.io.IOException;
@@ -8,6 +13,7 @@ import static archive.CreateArchive.*;
 
 
 public class ArchiveTest {
+
 
     @Test
 
@@ -33,9 +39,16 @@ public class ArchiveTest {
     @Test
 
     public void compareFilesTestMd5() throws IOException, NoSuchAlgorithmException {
-        compareFiles();
+        compareFilesMD5();
     }
 
+    @BeforeSuite
+    @AfterSuite
+
+
+    void deleteArchive() throws IOException {
+        CreateArchive.deleteArchiveAndNewFile(); //вызов метода удаления архива и файла в нем
+    }
 
 }
 
