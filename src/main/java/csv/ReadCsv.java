@@ -4,9 +4,9 @@ import java.io.FileReader;
 import java.util.Arrays;
 import au.com.bytecode.opencsv.CSVReader;
 
-public class TextCsv {
+public class ReadCsv {
 
-    public static void main(String[] args) throws Exception {
+    public static void readWordsFile(String[] args) throws Exception {
         CSVReader reader = new CSVReader(new FileReader("src/main/resources/Words.csv"), ',' , '"' , 1);
         String[] nextLine;
         while ((nextLine = reader.readNext()) != null) {
@@ -16,7 +16,7 @@ public class TextCsv {
         }
     }
 
-    public static String[] TextCsv()  throws Exception {
+    public static String[] readNumbersFile()  throws Exception {
         CSVReader reader = new CSVReader(new FileReader("src/main/resources/NumbersFile.csv"), ',' , '"' , 1);
         String[] nextLine;
         while ((nextLine = reader.readNext()) != null) {
