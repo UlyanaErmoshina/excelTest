@@ -1,9 +1,11 @@
 package archive;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
-import java.io.IOException;
+import org.testng.Assert;
+
+import java.io.*;
+import java.security.DigestInputStream;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.util.zip.ZipOutputStream;
 import java.util.zip.*;
 
@@ -62,7 +64,7 @@ public class CreateArchive {
     public static boolean compareFiles2() throws IOException {
 
         File file1 = new File("src/main/resources/NumbersFile.csv");
-        File file2 = new File("src/main/java/resources/newFile/NumbersFile.csv");
+        File file2 = new File("src/main/resources/newFile/NumbersFile.csv");
         if
         (file1.length() != file2.length()) {
             return false;
@@ -83,17 +85,27 @@ public class CreateArchive {
         return true;
     }
 
-    //второй способ сравнения файлов, используя getFile
-    //public static void compareFiles() {
-    //ArchiveTest.openArchiveAndSaveFile();
-
-    //File actual = getFile("src/main/resources/NumbersFile.csv");
-    //File expected = getFile("src/main/java/resources/newFile/NumbersFile.csv");
-
-    //Assert.assertEquals(actual, expected);
-
-    // }
-    //использовать хэшсумму
+    //второй способ сравнения файлов, используя md5
+    public static void compareFiles() throws NoSuchAlgorithmException, IOException {
 
 
-}
+        MessageDigest md_1 = MessageDigest.getInstance("MD5");
+        MessageDigest md_2 = MessageDigest.getInstance("MD5");
+        InputStream is_1 = new FileInputStream("src/main/resources/NumbersFile.csv");
+        InputStream is_2 = new FileInputStream("src/main/resources/newFile/NumbersFile.csv");
+        try {
+            is_1 = new DigestInputStream(is_1, md_1);
+            is_2 = new DigestInputStream(is_2, md_2);
+        }
+        finally {
+            is_1.close();
+            is_2.close();
+        }
+        byte[] digest_1 = md_1.digest();
+        byte[] digest_2 = md_2.digest();
+
+        Assert.assertEquals(digest_1, digest_2);
+
+
+        }
+    }
