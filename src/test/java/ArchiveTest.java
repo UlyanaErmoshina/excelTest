@@ -1,8 +1,6 @@
 
 import archive.CreateArchive;
-import org.junit.Before;
 import org.testng.annotations.AfterSuite;
-import org.testng.annotations.AfterTest;
 import org.testng.annotations.BeforeSuite;
 import org.testng.annotations.Test;
 
