@@ -15,7 +15,7 @@ public class APITest {
 
         //String urlToDownload = "https://storage.yandexcloud.net/lm-ved-bucket/24895667.zip?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=V4z29OOjnDiQHo3vtUFi%2F20210419%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Date=20210419T113233Z&X-Amz-Expires=43200&X-Amz-Signature=d0731c352f386f0db2533819cdb57de4e09e887857a3103f3c4da40225098af4&X-Amz-SignedHeaders=host";
         //parseURL(urlToDownload);
-        zipArchiveDownload(parseURL("X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=V4z29OOjnDiQHo3vtUFi%2F20210426%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Date=20210426T124039Z&X-Amz-Expires=43200&X-Amz-Signature=303296a2179c8f6c95ad194eeb6f86038d937ce7379a5209ec618acde9fedfa5&X-Amz-SignedHeaders=host"));
+        zipArchiveDownload(parseURL("X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=V4z29OOjnDiQHo3vtUFi%2F20210427%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Date=20210427T073856Z&X-Amz-Expires=43200&X-Amz-Signature=a6c0664747e384872a020fd3db94f49f9abc81d256da271e1d04389a04a39b0b&X-Amz-SignedHeaders=host"));
         //проверка
 
 
@@ -25,7 +25,7 @@ public class APITest {
 
     public void shouldParseUrlTest() throws IOException {
 
-        parseURL("X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=V4z29OOjnDiQHo3vtUFi%2F20210426%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Date=20210426T124039Z&X-Amz-Expires=43200&X-Amz-Signature=303296a2179c8f6c95ad194eeb6f86038d937ce7379a5209ec618acde9fedfa5&X-Amz-SignedHeaders=host");
+        parseURL("X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=V4z29OOjnDiQHo3vtUFi%2F20210427%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Date=20210427T073856Z&X-Amz-Expires=43200&X-Amz-Signature=a6c0664747e384872a020fd3db94f49f9abc81d256da271e1d04389a04a39b0b&X-Amz-SignedHeaders=host");
 
 
     }
