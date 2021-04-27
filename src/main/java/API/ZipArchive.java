@@ -1,6 +1,8 @@
 package API;
 
 import io.restassured.RestAssured;
+import io.restassured.config.EncoderConfig;
+import io.restassured.http.ContentType;
 import io.restassured.response.Response;
 import org.testng.Assert;
 
@@ -10,6 +12,8 @@ import java.io.IOException;
 import java.io.OutputStream;
 import java.util.HashMap;
 import java.util.Map;
+
+import static io.restassured.config.EncoderConfig.encoderConfig;
 
 
 public class ZipArchive {
@@ -34,28 +38,29 @@ public class ZipArchive {
     }
 
 
-    public static void zipArchiveDownload(Map<String, String> maps) throws IOException {
+    public static void zipArchiveDownload(Map<String, String> maps, String orderNum) throws IOException {
 
 
         File outputFile = new File("src/main/resources/newFile/", "ZipArchive.zip");
-        String site = "https://storage.yandexcloud.net/lm-ved-bucket/24982262.zip?";
-
+        String site = "https://storage.yandexcloud.net/lm-ved-bucket/"+orderNum+".zip?";
 
 
         //String urlToDownload = "https://storage.yandexcloud.net/lm-ved-bucket/24895667.zip?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=V4z29OOjnDiQHo3vtUFi%2F20210419%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Date=20210419T113233Z&X-Amz-Expires=43200&X-Amz-Signature=d0731c352f386f0db2533819cdb57de4e09e887857a3103f3c4da40225098af4&X-Amz-SignedHeaders=host";
-        String urlToDownload = site + "X-Amz-Algorithm=" + maps.get("X-Amz-Algorithm") + "&X-Amz-Credential=" + maps.get("X-Amz-Credential") + "&X-Amz-Date=" + maps.get("X-Amz-Date") + "&X-Amz-Expires=" + maps.get("X-Amz-Expires") + "&X-Amz-Signature=" + maps.get("X-Amz-Signature") + "&X-Amz-SignedHeaders=" + maps.get("X-Amz-SignedHeaders");
+        String urlToDownload = site + "X-Amz-Algorithm=" + maps.get("X-Amz-Algorithm")
+                + "&X-Amz-Credential=" + maps.get("X-Amz-Credential") + "&X-Amz-Date="
+                + maps.get("X-Amz-Date") + "&X-Amz-Expires=" + maps.get("X-Amz-Expires")
+                + "&X-Amz-Signature=" + maps.get("X-Amz-Signature") + "&X-Amz-SignedHeaders="
+                + maps.get("X-Amz-SignedHeaders");
 
         //outputPath = "src/main/resources/newFile/";
         //filename = "ZipArchive.zip";
         System.out.println(urlToDownload);
-        System.out.println(maps.get("X-Amz-Algorithm"));
 
-        Response response = RestAssured.given().//получение ответа
-                when().
-                get(urlToDownload).
-                andReturn();
-        Assert.assertEquals(response.getStatusCode(), "200");
-        if (response.getStatusCode() == 200) {
+        Response response = RestAssured.given().urlEncodingEnabled(false).//получение ответа
+                when().log().all().get(urlToDownload);
+                response.getBody().prettyPrint();
+        Assert.assertEquals(response.getStatusCode(), 200);
+        if (response.getStatusCode()== 200) {
 
             if (outputFile.exists()) {
                 outputFile.delete();
@@ -75,5 +80,6 @@ public class ZipArchive {
         }
 
     }
+
 
 }
