@@ -61,7 +61,7 @@ public class CompareFiles {
         }
         return true;
     }
-
+    //todo если у тебя сделано всё красивым перебором в цикле, зачем тебе этот метод? не жалей мусор =)
     //?второй способ сравнения файлов, используя md5
     public static void compareFilesMD5() throws NoSuchAlgorithmException, IOException {
 
@@ -147,6 +147,7 @@ public class CompareFiles {
         sBr.close();
     }
 
+    //todo 2 одинаковых метода. Зачем? путь в переменную и один метод
     //получение MD5 файла1
     public static String getMD5File1() throws IOException, NoSuchAlgorithmException {
 
@@ -182,7 +183,7 @@ public class CompareFiles {
     //СРАВНИВАЕМ ФАЙЛЫ
 
     //1. получение MD5 файлов из папки documents
-
+    //todo путь так же в переменную
     public static ArrayList<String> getMD5FileFromDocuments() throws IOException, NoSuchAlgorithmException {
 
         File folder = new File("src/main/resources/filesFromDocuments");
@@ -216,7 +217,7 @@ public class CompareFiles {
 
 
         //2. получение MD5 файлов из папки zipFiles
-
+        //todo путь так же в переменную
         public static ArrayList<String> getMD5FileFromZipFiles () throws IOException, NoSuchAlgorithmException {
 
             File folder = new File("src/main/resources/filesFromArchive");
@@ -225,6 +226,7 @@ public class CompareFiles {
             ArrayList<String> digestInHex2 = new ArrayList<String>();
 
             for (File file : listOfFiles) {
+                //todo для чего тут if?
                 if (file.isFile()) {
                     //System.out.println(file.getPath());
                 }
@@ -247,6 +249,7 @@ public class CompareFiles {
         }
 
         //3. сравниваем MD5 файлов из папки filesFromDocuments и zipFiles
+
         public static void compareMD5FilesFrom2Folders () throws IOException, NoSuchAlgorithmException {
 
             ArrayList <String> actual = getMD5FileFromDocuments();
@@ -269,6 +272,7 @@ public class CompareFiles {
     //сравниваем файл ОС последний по дате из chronology и файл ОС из documents
 
     //4. получение MD5 файла OC последнего по дате из chronology
+    //todo путь так же в переменную
     public static String getMD5LatestOCFromChronology() throws IOException, NoSuchAlgorithmException {
 
         String path = "src/main/resources/filesFromChronology/filename";
@@ -283,6 +287,7 @@ public class CompareFiles {
     }
 
     //5. получение MD5 файла OC из documents
+    //todo путь так же в переменную
     public static String getMD5OCFromDocuments() throws IOException, NoSuchAlgorithmException {
 
         String path = "src/main/resources/filesFromDocuments/Order Confirmation.xls";

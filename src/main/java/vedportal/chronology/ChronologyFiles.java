@@ -92,6 +92,7 @@ public class ChronologyFiles {
         return docDate;
     }
 
+    //todo не оставляй мусор. удаляй лишнее. метод явно не используется
     //создание объектов файлов
     public static void checkVedFileObject() throws IOException, ParseException {
 
@@ -121,7 +122,7 @@ public class ChronologyFiles {
 
     }
 
-
+    //todo проверяем где? метод нигде не используется
     //проверяем, что в массивах одинаковое кол-во значений
     public static void checkArraySize() throws IOException {
 
@@ -134,7 +135,7 @@ public class ChronologyFiles {
 
 
     }
-
+    //todo 2 метода, которые отличаются одной строчкой. подумай, как их можно объединить, чтобы не было дубля кода
     //получение ОС из всех файлов
     public static ArrayList<String> getOCFile() throws IOException, ParseException {
 
@@ -203,7 +204,7 @@ public class ChronologyFiles {
         return Date1;
     }
 
-
+    //todo так же 2 метода одинаковых, есть способ объединить их
     //получение ARF из всех файлов
     public static ArrayList<String> getARFFile() throws IOException, ParseException {
 
@@ -253,6 +254,7 @@ public class ChronologyFiles {
 
         for (int i = 0; i < length - 1; i++) {
             if (!datesARF.get(length - 1).after(datesARF.get(i))) {
+                //todo здесь достаточно просто fail с комментарием
                 System.out.println("Последний эллемент массива по времени раньше чем предыдущие");
                 Date2 = datesARF.get(length - 1);
                 fail();

@@ -11,7 +11,7 @@ import java.util.*;
 public class DocumentsFiles {
 
     public static String jsonDocuments() throws IOException {
-
+        //todo вынеси путь в переменную
         FileInputStream fs = new FileInputStream("src/main/resources/json/jsonResponseDocuments");
         BufferedReader br = new BufferedReader(new InputStreamReader(fs));
         String jsonString = br.readLine();
@@ -23,7 +23,7 @@ public class DocumentsFiles {
 
 
     //парсинг json documents, получение url файлов
-
+    //todo из названия не понятно, что будет на выходе
     public static List<String> parseJsonDocuments() throws IOException {
 
 

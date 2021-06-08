@@ -41,7 +41,7 @@ public class ZipArchive {
         }
 
     }
-
+    //todo так зачем у тебя путь в переменной, если ты его не используешь?
     public static void deleteArchive(String path) throws IOException {
 
         File zout = new File("src/main/resources/ZipArchive.zip");
