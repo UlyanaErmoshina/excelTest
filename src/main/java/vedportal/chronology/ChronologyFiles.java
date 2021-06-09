@@ -27,7 +27,7 @@ public class ChronologyFiles {
         return jsonString;
 
 
-}
+    }
 
 
     public static List<String> parseJsonChronologyAndGetUrl() throws IOException {
@@ -87,26 +87,10 @@ public class ChronologyFiles {
             System.out.println(docDate);
 
         }
-        //Date docDate = null;
 
         return docDate;
     }
 
-    //todo не оставляй мусор. удаляй лишнее. метод явно не используется
-    //создание объектов файлов
-    public static void checkVedFileObject() throws IOException, ParseException {
-
-
-        VedFile vedFile1 = new VedFile(parseJsonChronologyAndGetUrl().get(0), (getDate(parseJsonChronologyAndGetDate()).get(0)), parseJsonChronologyAndGetName().get(0));
-        VedFile vedFile2 = new VedFile(parseJsonChronologyAndGetUrl().get(1), (getDate(parseJsonChronologyAndGetDate()).get(1)), parseJsonChronologyAndGetName().get(1));
-        VedFile vedFile3 = new VedFile(parseJsonChronologyAndGetUrl().get(2), (getDate(parseJsonChronologyAndGetDate()).get(2)), parseJsonChronologyAndGetName().get(2));
-        VedFile vedFile4 = new VedFile(parseJsonChronologyAndGetUrl().get(3), (getDate(parseJsonChronologyAndGetDate()).get(3)), parseJsonChronologyAndGetName().get(3));
-        VedFile vedFile5 = new VedFile(parseJsonChronologyAndGetUrl().get(4), (getDate(parseJsonChronologyAndGetDate()).get(4)), parseJsonChronologyAndGetName().get(4));
-        VedFile vedFile6 = new VedFile(parseJsonChronologyAndGetUrl().get(5), (getDate(parseJsonChronologyAndGetDate()).get(5)), parseJsonChronologyAndGetName().get(5));
-        VedFile vedFile7 = new VedFile(parseJsonChronologyAndGetUrl().get(6), (getDate(parseJsonChronologyAndGetDate()).get(6)), parseJsonChronologyAndGetName().get(6));
-
-
-    }
 
     //создание объектов файлов циклом
     public static ArrayList<VedFile> createVedFileObject() throws IOException, ParseException {
@@ -122,7 +106,6 @@ public class ChronologyFiles {
 
     }
 
-    //todo проверяем где? метод нигде не используется
     //проверяем, что в массивах одинаковое кол-во значений
     public static void checkArraySize() throws IOException {
 
@@ -135,6 +118,7 @@ public class ChronologyFiles {
 
 
     }
+
     //todo 2 метода, которые отличаются одной строчкой. подумай, как их можно объединить, чтобы не было дубля кода
     //получение ОС из всех файлов
     public static ArrayList<String> getOCFile() throws IOException, ParseException {
@@ -204,6 +188,41 @@ public class ChronologyFiles {
         return Date1;
     }
 
+    //Получаем url последнего по дате ОС
+    public static String getUrlLatestOCFileFromChronology(Date Date1) throws IOException, ParseException {
+
+        ArrayList<VedFile> vedFilesArrayList = createVedFileObject();
+        String urlFileOCLastDate = new String();
+
+        for (int i = 0; i < vedFilesArrayList.size(); i++) {
+            if (vedFilesArrayList.get(i).getDate().equals(Date1)) {
+                VedFile fileOCLastDate = new VedFile(parseJsonChronologyAndGetUrl().get(i), (getDate(parseJsonChronologyAndGetDate()).get(i)), parseJsonChronologyAndGetName().get(i));
+                fileOCLastDate.getUrl();
+                //String urlFileOCLastDate = new String();
+
+                urlFileOCLastDate = fileOCLastDate.getUrl();
+                System.out.println(urlFileOCLastDate);
+            }
+
+        }
+
+        return urlFileOCLastDate;
+
+
+    }
+
+    //скачиваем последнее по дате ОС
+    public static void downloadLatestOCFileFromChronology(String urlFileOCLastDate) throws IOException {
+
+        URL url = new URL(urlFileOCLastDate);
+
+
+        InputStream inputStream = url.openStream();
+        Files.copy(inputStream, new File("src/main/resources/filesFromChronology/filename").toPath());
+
+    }
+
+
     //todo так же 2 метода одинаковых, есть способ объединить их
     //получение ARF из всех файлов
     public static ArrayList<String> getARFFile() throws IOException, ParseException {
@@ -264,48 +283,100 @@ public class ChronologyFiles {
         return Date2;
     }
 
+    //Получаем url последнего по дате ARF
 
-
-    //Получаем url последнего по дате ОС
-    public static String getUrlLatestOCFileFromChronology(Date Date1) throws IOException, ParseException {
+    public static String getUrlLatestARFFileFromChronology(Date Date2) throws IOException, ParseException {
 
         ArrayList<VedFile> vedFilesArrayList = createVedFileObject();
-        String urlFileOCLastDate = new String();
+        String urlFileARFLastDate = new String();
 
         for (int i = 0; i < vedFilesArrayList.size(); i++) {
-                if (vedFilesArrayList.get(i).getDate().equals(Date1)) {
-                    VedFile fileOCLastDate = new VedFile(parseJsonChronologyAndGetUrl().get(i), (getDate(parseJsonChronologyAndGetDate()).get(i)), parseJsonChronologyAndGetName().get(i));
-                    fileOCLastDate.getUrl();
-                    //String urlFileOCLastDate = new String();
+            if (vedFilesArrayList.get(i).getDate().equals(Date2)) {
+                VedFile fileARFLastDate = new VedFile(parseJsonChronologyAndGetUrl().get(i), (getDate(parseJsonChronologyAndGetDate()).get(i)), parseJsonChronologyAndGetName().get(i));
+                fileARFLastDate.getUrl();
 
-                   urlFileOCLastDate = fileOCLastDate.getUrl();
-                    System.out.println(urlFileOCLastDate);
-                }
-
+                urlFileARFLastDate = fileARFLastDate.getUrl();
+                System.out.println(urlFileARFLastDate);
             }
-
-        return urlFileOCLastDate;
-
 
         }
 
-
-    //скачиваем последнее по дате ОС
-    public static void downloadLatestOCFileFromChronology(String urlFileOCLastDate) throws IOException {
-
-        URL url = new URL(urlFileOCLastDate);
-
-
-        InputStream inputStream = url.openStream();
-        Files.copy(inputStream, new File("src/main/resources/filesFromChronology/filename").toPath());
+        return urlFileARFLastDate;
 
     }
-
 
     //скачиваем последний по дате ARF
 
+    public static void downloadLatestARFFileFromChronology(String urlFileARFLastDate) throws IOException {
+
+        URL url = new URL(urlFileARFLastDate);
+
+
+        InputStream inputStream = url.openStream();
+        Files.copy(inputStream, new File("src/main/resources/filesFromChronology/filenameARF").toPath());
 
     }
+
+
+    //получение pdf из всех файлов
+    public static String getPdfFile() throws IOException, ParseException {
+
+        ArrayList<VedFile> vedFilesArrayList = createVedFileObject();
+        String FilePdf = new String();
+
+        for (int i = 0; i < vedFilesArrayList.size(); i++) {
+
+            if (vedFilesArrayList.get(i).getName().contains("pdf")) {
+                FilePdf = vedFilesArrayList.get(i).getName();
+
+            }
+        }
+        System.out.println(FilePdf);
+        return FilePdf;
+
+    }
+
+    //Получаем url pdf
+
+    public static String getUrlPdfFileFromChronology(String FilePdf) throws IOException, ParseException {
+
+        ArrayList<VedFile> vedFilesArrayList = createVedFileObject();
+        FilePdf = getPdfFile();
+
+        String urlFilePdf = new String();
+
+        VedFile filePdfLastDate = new VedFile(parseJsonChronologyAndGetUrl().get(2), (getDate(parseJsonChronologyAndGetDate()).get(2)), parseJsonChronologyAndGetName().get(2));
+        filePdfLastDate.getUrl();
+
+        urlFilePdf = filePdfLastDate.getUrl();
+        System.out.println(urlFilePdf);
+
+
+
+        return urlFilePdf;
+
+    }
+
+    //скачиваем pdf
+
+    public static void downloadPdfFileFromChronology(String urlFilePdf) throws IOException {
+
+        URL url = new URL(urlFilePdf);
+
+
+        InputStream inputStream = url.openStream();
+        Files.copy(inputStream, new File("src/main/resources/filesFromChronology/filenamePdf").toPath());
+
+    }
+
+
+
+
+
+
+
+}
+
 
 
 

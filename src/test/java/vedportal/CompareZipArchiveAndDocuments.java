@@ -20,7 +20,7 @@ public class CompareZipArchiveAndDocuments {
 
         zipArchiveDownload3();//загружаем архив
         openZipArchiveAndSaveFile();//разворачиваем архив
-        downloadFilesDocuments(parseJsonDocuments(),parseJsonDocumentsAndGetNames());//скачиваем файлы из Documents
+        downloadFilesDocuments(parseJsonDocumentsAndGetUrl(),parseJsonDocumentsAndGetNames());//скачиваем файлы из Documents
         compareMD5FilesFrom2Folders();//сравниваем MD5 файлов из documents и zipFiles
 
     }

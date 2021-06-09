@@ -10,7 +10,7 @@ public class ZipArchive {
     //скачиваем архив
     public static void zipArchiveDownload3() throws IOException {
 
-        URL url = new URL("https://storage.yandexcloud.net/lm-ved-bucket/25065238.zip?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=V4z29OOjnDiQHo3vtUFi%2F20210608%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Date=20210608T121702Z&X-Amz-Expires=43200&X-Amz-Signature=0a61159a4c3b92e0599d78f318ab71e02b786a8aa04a6c7e1692d0bc294afa5d&X-Amz-SignedHeaders=host");
+        URL url = new URL("https://storage.yandexcloud.net/lm-ved-bucket/25065238.zip?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=V4z29OOjnDiQHo3vtUFi%2F20210609%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Date=20210609T073639Z&X-Amz-Expires=43200&X-Amz-Signature=a694cf119a18720c096efa954241056432413f59cdcdcd90563a013cedade9a3&X-Amz-SignedHeaders=host");
         InputStream inputStream = url.openStream();
         Files.copy(inputStream, new File("src/main/resources/ZipArchive.zip").toPath());
 
@@ -41,10 +41,10 @@ public class ZipArchive {
         }
 
     }
-    //todo так зачем у тебя путь в переменной, если ты его не используешь?
+
     public static void deleteArchive(String path) throws IOException {
 
-        File zout = new File("src/main/resources/ZipArchive.zip");
+        File zout = new File(path);
         zout.delete();
     }
 

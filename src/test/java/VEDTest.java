@@ -55,7 +55,7 @@ public class VEDTest {
 
     public void shouldParseJsonDocumentsTest() throws IOException {
 
-        parseJsonDocuments();
+        parseJsonDocumentsAndGetUrl();
     }
 
     //2.Парсим JSON Documents и получаем Name файлов
@@ -72,7 +72,7 @@ public class VEDTest {
 
     public void shouldDownloadFilesDocumentsTest() throws IOException {
 
-        downloadFilesDocuments(parseJsonDocuments(),parseJsonDocumentsAndGetNames());
+        downloadFilesDocuments(parseJsonDocumentsAndGetUrl(),parseJsonDocumentsAndGetNames());
     }
 
     //1.Парсим JSON Chronology и получаем url файлов
@@ -195,6 +195,61 @@ public class VEDTest {
 
     }
 
+    //14.Получаем url последнего по дате ARF
+    @Test
+
+    public void shouldGetUrlLatestARFFileTest() throws IOException, ParseException {
+
+        getUrlLatestARFFileFromChronology(getLatestARFDate());
+
+    }
+
+    //15.Cкачиваем последний по дате ARF
+    @Test
+
+    public void shouldDownloadLatestARFFileTest() throws IOException, ParseException {
+
+        downloadLatestARFFileFromChronology(getUrlLatestARFFileFromChronology(getLatestARFDate()));
+
+    }
+
+    //Получаем только файлы Pdf
+    @Test
+
+    public void shouldGetPdfFileTest() throws IOException, ParseException {
+
+        getPdfFile();
+
+    }
+
+    //Получаем url Pdf
+    @Test
+
+    public void shouldGetUrlPdfFileTest() throws IOException, ParseException {
+
+        getUrlPdfFileFromChronology(getPdfFile());
+
+    }
+
+    //Cкачиваем pdf
+
+    @Test
+
+    public void shouldDownloadPdfFileTest() throws IOException, ParseException {
+
+        downloadPdfFileFromChronology(getUrlPdfFileFromChronology(getPdfFile()));
+
+    }
+
+    @Test
+
+    public void shouldCompareMD5PdfFilesTest() throws IOException, NoSuchAlgorithmException {
+
+        compareMD5PdfFiles();
+
+    }
+
+
 
 
 
@@ -206,13 +261,6 @@ public class VEDTest {
 
     }
 
-    @Test
-
-    public void shouldCompareFilesMD5Test() throws IOException, NoSuchAlgorithmException {
-
-        compareFilesMD5();
-
-    }
 
 
     @Test
@@ -224,23 +272,13 @@ public class VEDTest {
     }
 
 
-
-
-
-
     @Test
 
     public void shouldGetMD5File1Test() throws IOException, NoSuchAlgorithmException {
 
-        getMD5File1();
+        getMD5File1("src/main/resources/filesFromDocuments/Order Confirmation.pdf");
     }
 
-    @Test
-
-    public void shouldGetMD5File2Test() throws IOException, NoSuchAlgorithmException {
-
-        getMD5File2();
-    }
 
 
     //6.Получаем MD5 файлов из documents
@@ -257,17 +295,9 @@ public class VEDTest {
 
     public void shouldGetMD5FileFromZipFilesTest() throws IOException, NoSuchAlgorithmException {
 
-        getMD5FileFromZipFiles();
+        getMD5FileFromZipFiles("src/main/resources/filesFromArchive");
     }
 
-
-
-    @Test
-
-    public void shouldCompareMD5Test() throws IOException, NoSuchAlgorithmException {
-
-        compareMD5();
-    }
 
 
     //8.Сравниваем MD5 файлов из documents и zipFiles
@@ -291,12 +321,39 @@ public class VEDTest {
 
 
 
+    //Получаем MD5 файла ARF последнего по дате из chronology
+    @Test
+
+    public void shouldGetMD5LatestARFTest() throws IOException, NoSuchAlgorithmException {
+
+        getMD5LatestARFFromChronology("src/main/resources/filesFromChronology/filenameARF");
+
+    }
+
+    //Получаем MD5 файла ARF из documents
+    @Test
+
+    public void shouldGetMD5ARFFromDocumentsTest() throws IOException, NoSuchAlgorithmException {
+
+        getMD5ARFFromDocuments("src/main/resources/filesFromDocuments/Atlas Russian File.xls");
+
+    }
+
+    //Сравниваем MD5 двух ARF
+    @Test
+
+    public void shouldCompareMD5ARFFilesTest() throws IOException, NoSuchAlgorithmException {
+
+        compareMD5ARFFiles();
+
+    }
+
     //22.Получаем MD5 файла OC последнего по дате из chronology
     @Test
 
     public void shouldGetMD5LatestOCTest() throws IOException, NoSuchAlgorithmException {
 
-        getMD5LatestOCFromChronology();
+        getMD5LatestOCFromChronology("src/main/resources/filesFromChronology/filename");
 
     }
 
@@ -305,7 +362,7 @@ public class VEDTest {
 
     public void shouldGetMD5OCFromDocumentsTest() throws IOException, NoSuchAlgorithmException {
 
-        getMD5OCFromDocuments();
+        getMD5OCFromDocuments("src/main/resources/filesFromDocuments/Order Confirmation.xls");
 
     }
 
@@ -317,6 +374,13 @@ public class VEDTest {
         compareMD5OCFiles();
 
     }
+
+
+
+
+
+
+
 
     @Test
 
@@ -340,6 +404,16 @@ public class VEDTest {
         jsonChronology();
 
     }
+    @Test
+
+    public void shouldJsonDocumentsTest() throws IOException, NoSuchAlgorithmException {
+
+        jsonDocuments("src/main/resources/json/jsonResponseDocuments");
+
+    }
+
+
+
 
 
 }

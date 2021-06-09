@@ -10,9 +10,9 @@ import java.util.*;
 
 public class DocumentsFiles {
 
-    public static String jsonDocuments() throws IOException {
-        //todo вынеси путь в переменную
-        FileInputStream fs = new FileInputStream("src/main/resources/json/jsonResponseDocuments");
+    public static String jsonDocuments(String path) throws IOException {
+
+        FileInputStream fs = new FileInputStream(path);
         BufferedReader br = new BufferedReader(new InputStreamReader(fs));
         String jsonString = br.readLine();
         System.out.println(jsonString);
@@ -23,11 +23,10 @@ public class DocumentsFiles {
 
 
     //парсинг json documents, получение url файлов
-    //todo из названия не понятно, что будет на выходе
-    public static List<String> parseJsonDocuments() throws IOException {
+    public static List<String> parseJsonDocumentsAndGetUrl() throws IOException {
 
 
-        String jsonString = jsonDocuments();
+        String jsonString = jsonDocuments("src/main/resources/json/jsonResponseDocuments");
 
         List<String> urlFiles = JsonPath.read(jsonString, "$..url");
         for (String url : urlFiles) {
@@ -42,7 +41,7 @@ public class DocumentsFiles {
     public static List<String> parseJsonDocumentsAndGetNames() throws IOException {
 
 
-        String jsonString = jsonDocuments();
+        String jsonString = jsonDocuments("src/main/resources/json/jsonResponseDocuments");
 
         List<String> nameFiles = JsonPath.read(jsonString, "$..data[0].files[0,1,2].fileName");
         for (String url : nameFiles) {

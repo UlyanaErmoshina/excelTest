@@ -61,51 +61,6 @@ public class CompareFiles {
         }
         return true;
     }
-    //todo если у тебя сделано всё красивым перебором в цикле, зачем тебе этот метод? не жалей мусор =)
-    //?второй способ сравнения файлов, используя md5
-    public static void compareFilesMD5() throws NoSuchAlgorithmException, IOException {
-
-
-        MessageDigest md_1 = MessageDigest.getInstance("MD5");
-        MessageDigest md_2 = MessageDigest.getInstance("MD5");
-        MessageDigest md_3 = MessageDigest.getInstance("MD5");
-        MessageDigest md_4 = MessageDigest.getInstance("MD5");
-        MessageDigest md_5 = MessageDigest.getInstance("MD5");
-        MessageDigest md_6 = MessageDigest.getInstance("MD5");
-        InputStream is_1 = new FileInputStream("src/main/resources/localFile/End-to-end Import Process_date-28-4-2021_time-18-5.pdf");
-        InputStream is_2 = new FileInputStream("src/main/resources/newFile/End-to-end Import Process_date-28-4-2021_time-18-5.pdf");
-        InputStream is_3 = new FileInputStream("src/main/resources/localFile/OC_CDF_LM_RU_OUEST_USD-CDF-CDF-HANGZHOU KINGSUN IMP.& EXP.CO.,LTD_date-28-4-2021_time-18-5.xlsx");
-        InputStream is_4 = new FileInputStream("src/main/resources/newFile/OC_CDF_LM_RU_OUEST_USD-CDF-CDF-HANGZHOU KINGSUN IMP.& EXP.CO.,LTD_date-28-4-2021_time-18-5.xlsx");
-        InputStream is_5 = new FileInputStream("src/main/resources/localFile/ARF_K506_HANGZHOU KINGSUN IMP.& EXP.CO.,LTD._date-28-4-2021_time-18-16.xlsx");
-        InputStream is_6 = new FileInputStream("src/main/resources/newFile/ARF_K506_HANGZHOU KINGSUN IMP.& EXP.CO.,LTD._date-28-4-2021_time-18-16.xlsx");
-        try {
-            is_1 = new DigestInputStream(is_1, md_1);
-            is_2 = new DigestInputStream(is_2, md_2);
-            is_3 = new DigestInputStream(is_3, md_3);
-            is_4 = new DigestInputStream(is_4, md_4);
-            is_5 = new DigestInputStream(is_5, md_5);
-            is_6 = new DigestInputStream(is_6, md_6);
-        } finally {
-            is_1.close();
-            is_2.close();
-            is_3.close();
-            is_4.close();
-            is_5.close();
-            is_6.close();
-        }
-        byte[] digest_1 = md_1.digest();
-        byte[] digest_2 = md_2.digest();
-        byte[] digest_3 = md_3.digest();
-        byte[] digest_4 = md_4.digest();
-        byte[] digest_5 = md_5.digest();
-        byte[] digest_6 = md_6.digest();
-
-        Assert.assertEquals(digest_1, digest_2);
-        Assert.assertEquals(digest_3, digest_4);
-        Assert.assertEquals(digest_5, digest_6);
-
-
-    }
 
 
 
@@ -147,43 +102,28 @@ public class CompareFiles {
         sBr.close();
     }
 
-    //todo 2 одинаковых метода. Зачем? путь в переменную и один метод
     //получение MD5 файла1
-    public static String getMD5File1() throws IOException, NoSuchAlgorithmException {
+    public static String getMD5File1(String path) throws IOException, NoSuchAlgorithmException {
 
-        String path = "src/main/resources/filesFromDocuments/CD,FInvalidDeadline of PI sending date.xlsx";
         MessageDigest md = MessageDigest.getInstance("MD5");
         md.update(Files.readAllBytes(Paths.get(path)));
         byte[] digest = md.digest();
 
         String digestInHex1 = DatatypeConverter.printHexBinary(digest).toLowerCase();
+
         System.out.println(digestInHex1);
 
         return digestInHex1;
-    }
-
-
-    //получение MD5 файла2
-    public static String getMD5File2() throws IOException, NoSuchAlgorithmException {
-
-        String path = "src/main/resources/zipFiles/ARF_K506_HANGZHOU KINGSUN IMP.& EXP.CO.,LTD._date-28-4-2021_time-18-16.xlsx";
-        MessageDigest md = MessageDigest.getInstance("MD5");
-        md.update(Files.readAllBytes(Paths.get(path)));
-        byte[] digest = md.digest();
-
-        String digestInHex2 = DatatypeConverter.printHexBinary(digest).toLowerCase();
-        System.out.println(digestInHex2);
-
-        return digestInHex2;
 
 
     }
+
 
 
     //СРАВНИВАЕМ ФАЙЛЫ
 
     //1. получение MD5 файлов из папки documents
-    //todo путь так же в переменную
+
     public static ArrayList<String> getMD5FileFromDocuments() throws IOException, NoSuchAlgorithmException {
 
         File folder = new File("src/main/resources/filesFromDocuments");
@@ -209,6 +149,7 @@ public class CompareFiles {
             digestInHex2.add(digestInHex3);
 
             System.out.println(digestInHex2);
+
         }
 
         return digestInHex2;
@@ -217,21 +158,17 @@ public class CompareFiles {
 
 
         //2. получение MD5 файлов из папки zipFiles
-        //todo путь так же в переменную
-        public static ArrayList<String> getMD5FileFromZipFiles () throws IOException, NoSuchAlgorithmException {
 
-            File folder = new File("src/main/resources/filesFromArchive");
+        public static ArrayList<String> getMD5FileFromZipFiles (String path) throws IOException, NoSuchAlgorithmException {
+
+            File folder = new File(path);
             File[] listOfFiles = folder.listFiles();
 
             ArrayList<String> digestInHex2 = new ArrayList<String>();
 
             for (File file : listOfFiles) {
-                //todo для чего тут if?
-                if (file.isFile()) {
-                    //System.out.println(file.getPath());
-                }
 
-                String path = file.getPath();
+                //String path = file.getPath();
 
                 MessageDigest md = MessageDigest.getInstance("MD5");
                 md.update(Files.readAllBytes(Paths.get(path)));
@@ -253,29 +190,28 @@ public class CompareFiles {
         public static void compareMD5FilesFrom2Folders () throws IOException, NoSuchAlgorithmException {
 
             ArrayList <String> actual = getMD5FileFromDocuments();
-            ArrayList <String> expected = getMD5FileFromZipFiles();
+            ArrayList <String> expected = getMD5FileFromZipFiles("src/main/resources/filesFromArchive");
 
             Assert.assertEquals(actual, expected);
         }
 
 
         //сравниваем MD5 файлов 1 и 2
-        public static void compareMD5 () throws IOException, NoSuchAlgorithmException {
+        //public static void compareMD5 () throws IOException, NoSuchAlgorithmException {
 
-            String actual = getMD5File1();
-            String expected = getMD5File2();
+            //String actual = getMD5File1();
+            //String expected = getMD5File2();
 
-            Assert.assertEquals(actual, expected);
-        }
+            //Assert.assertEquals(actual, expected);
+        //}
 
 
     //сравниваем файл ОС последний по дате из chronology и файл ОС из documents
 
     //4. получение MD5 файла OC последнего по дате из chronology
-    //todo путь так же в переменную
-    public static String getMD5LatestOCFromChronology() throws IOException, NoSuchAlgorithmException {
 
-        String path = "src/main/resources/filesFromChronology/filename";
+    public static String getMD5LatestOCFromChronology(String path) throws IOException, NoSuchAlgorithmException {
+
         MessageDigest md = MessageDigest.getInstance("MD5");
         md.update(Files.readAllBytes(Paths.get(path)));
         byte[] digest = md.digest();
@@ -287,10 +223,8 @@ public class CompareFiles {
     }
 
     //5. получение MD5 файла OC из documents
-    //todo путь так же в переменную
-    public static String getMD5OCFromDocuments() throws IOException, NoSuchAlgorithmException {
+    public static String getMD5OCFromDocuments(String path) throws IOException, NoSuchAlgorithmException {
 
-        String path = "src/main/resources/filesFromDocuments/Order Confirmation.xls";
         MessageDigest md = MessageDigest.getInstance("MD5");
         md.update(Files.readAllBytes(Paths.get(path)));
         byte[] digest = md.digest();
@@ -304,13 +238,105 @@ public class CompareFiles {
     //6. сравниваем MD5 двух ОС
     public static void compareMD5OCFiles () throws IOException, NoSuchAlgorithmException {
 
-        String actual = getMD5LatestOCFromChronology();
-        String expected = getMD5OCFromDocuments();
+        String actual = getMD5LatestOCFromChronology("src/main/resources/filesFromChronology/filename");
+        String expected = getMD5OCFromDocuments("src/main/resources/filesFromDocuments/Order Confirmation.xls");
 
         Assert.assertEquals(actual, expected);
     }
 
-    //7. сравниваем ARF и OC.pdf
+    //сравниваем файл ARF последний по дате из chronology и файл ARF из documents
+
+    //7. получение MD5 файла ARF последнего по дате из chronology
+
+    public static String getMD5LatestARFFromChronology(String path) throws IOException, NoSuchAlgorithmException {
+
+        MessageDigest md = MessageDigest.getInstance("MD5");
+        md.update(Files.readAllBytes(Paths.get(path)));
+        byte[] digest = md.digest();
+
+        String digestInHex1 = DatatypeConverter.printHexBinary(digest).toLowerCase();
+        System.out.println(digestInHex1);
+
+        return digestInHex1;
+    }
+
+    //8. получение MD5 файла ARF из documents
+    public static String getMD5ARFFromDocuments(String path) throws IOException, NoSuchAlgorithmException {
+
+        MessageDigest md = MessageDigest.getInstance("MD5");
+        md.update(Files.readAllBytes(Paths.get(path)));
+        byte[] digest = md.digest();
+
+        String digestInHex1 = DatatypeConverter.printHexBinary(digest).toLowerCase();
+        System.out.println(digestInHex1);
+
+        return digestInHex1;
+    }
+
+    //9. сравниваем MD5 двух ARF
+    public static void compareMD5ARFFiles () throws IOException, NoSuchAlgorithmException {
+
+        String actual = getMD5LatestARFFromChronology("src/main/resources/filesFromChronology/filenameARF");
+        String expected = getMD5ARFFromDocuments("src/main/resources/filesFromDocuments/Atlas Russian File.xls");
+
+        Assert.assertEquals(actual, expected);
+    }
+
+    //сравниваем файл pdf из chronology и файл pdf из documents
+
+
+    //10. получение MD5 файла pdf из chronology
+
+    public static String getMD5PdfFromChronology(String path) throws IOException, NoSuchAlgorithmException {
+
+        MessageDigest md = MessageDigest.getInstance("MD5");
+        md.update(Files.readAllBytes(Paths.get(path)));
+        byte[] digest = md.digest();
+
+        String digestInHex1 = DatatypeConverter.printHexBinary(digest).toLowerCase();
+        System.out.println(digestInHex1);
+
+        return digestInHex1;
+    }
+
+
+
+    //11. получение MD5 файла pdf из documents
+    public static String getMD5PdfFromDocuments(String path) throws IOException, NoSuchAlgorithmException {
+
+        MessageDigest md = MessageDigest.getInstance("MD5");
+        md.update(Files.readAllBytes(Paths.get(path)));
+        byte[] digest = md.digest();
+
+        String digestInHex1 = DatatypeConverter.printHexBinary(digest).toLowerCase();
+        System.out.println(digestInHex1);
+
+        return digestInHex1;
+    }
+
+
+    //12. сравниваем MD5 двух pdf
+    public static void compareMD5PdfFiles () throws IOException, NoSuchAlgorithmException {
+
+        String actual = getMD5LatestOCFromChronology("src/main/resources/filesFromChronology/filenamePdf");
+        String expected = getMD5PdfFromDocuments("src/main/resources/filesFromDocuments/Order Confirmation.pdf");
+
+        Assert.assertEquals(actual, expected);
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

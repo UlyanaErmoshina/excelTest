@@ -29,7 +29,6 @@ public class CreateArchive {
 
     }
 
-    //todo нашла метод-молодец. А поняла что он делает? Сможешь рассказать?
     public static void openArchiveAndSaveFile() {
 
         try (ZipInputStream zin = new ZipInputStream(new FileInputStream("src/main/resources/output.zip"))) {
@@ -71,7 +70,6 @@ public class CreateArchive {
         }
         FileInputStream fis1 = new FileInputStream(file1);
         FileInputStream fis2 = new FileInputStream(file2);
-        //todo разобралась что этот код делает? и зачем тут try/catch/finally?
         try {
             int byte1;
             while ((byte1 = fis1.read()) != -1) {
